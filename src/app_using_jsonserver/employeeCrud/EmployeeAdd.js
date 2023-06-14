@@ -46,6 +46,13 @@ const EmployeeAdd = () => {
             setError(false);
             setMessage('Employee added success!');
             setTimeout(() => {
+              setEmployeeState({
+                ...employeeState,
+                empName: '',
+                empEmail: '',
+                empPhone: '',
+                empGender: '',
+              });
               setMessage('');
               navigate('/employeelist');
             }, 1000);
@@ -76,7 +83,8 @@ const EmployeeAdd = () => {
                 name="employeename"
                 id="employeename"
                 placeholder="Employee name"
-                defaultValue={employeeState.empName}
+                // defaultValue={employeeState.empName}
+                value={employeeState.empName}
                 onChange={(e) =>
                   setEmployeeState({
                     ...employeeState,
@@ -94,7 +102,7 @@ const EmployeeAdd = () => {
                   placeholder="Email"
                   name="useremail"
                   id="useremail"
-                  defaultValue={employeeState.empEmail}
+                  value={employeeState.empEmail}
                   onChange={(e) =>
                     setEmployeeState({
                       ...employeeState,
@@ -111,7 +119,7 @@ const EmployeeAdd = () => {
                 name="phone"
                 id="phone"
                 placeholder="Phone Number"
-                defaultValue={employeeState.empPhone}
+                value={employeeState.empPhone}
                 onChange={(e) =>
                   setEmployeeState({
                     ...employeeState,
@@ -125,7 +133,7 @@ const EmployeeAdd = () => {
               <Form.Label>Gender</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                defaultValue={employeeState.empGender}
+                value={employeeState.empGender}
                 onChange={(e) =>
                   setEmployeeState({
                     ...employeeState,
