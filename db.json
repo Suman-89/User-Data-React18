@@ -1,34 +1,26 @@
 {
   "employee": [
     {
-      "employeename": "Mira Kumar",
-      "email": "mira@rmail.com",
-      "phone": "08482049212",
-      "gender": "female",
+      "employeename": "Dipak Roy",
+      "email": "dipakroy@wmail.com",
+      "phone": "03324778585",
+      "gender": "male",
       "status": false,
-      "performance": "best",
-      "empdetails": "New Employee",
-      "id": 1686750306112
+      "performance": "good",
+      "id": 1687437578779,
+      "newperformance": "outstanding",
+      "newstatus": true
     },
     {
-      "id": 1687272681675,
-      "employeename": "Khan Baba",
-      "email": "kj@yahoo.com",
-      "phone": "9894561258",
-      "gender": "female",
-      "status": true,
-      "performance": "better",
-      "empdetails": "Hi test"
-    },
-    {
-      "id": 1687272999084,
-      "employeename": "Suman",
-      "email": "suman.mukherjee01@gmail.com",
-      "phone": "08482049215",
+      "employeename": "Kamal Sen",
+      "email": "kamalsen@wmail.com",
+      "phone": "9874563210",
       "gender": "male",
       "status": true,
-      "performance": "better",
-      "empdetails": "Hi "
+      "performance": "best",
+      "id": 1687438190268,
+      "newperformance": "average",
+      "newstatus": false
     }
   ]
 }

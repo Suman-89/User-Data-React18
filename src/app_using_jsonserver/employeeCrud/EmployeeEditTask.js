@@ -13,8 +13,8 @@ const EmployeeEditTask = () => {
     userEmail: state?.dataEdit.email || '',
     userPhone: state?.dataEdit.phone || '',
     userGender: state?.dataEdit.gender || '',
-    userStatus: state?.dataEdit.status || false,
-    userPerformance: state?.dataEdit.performance || 'good',
+    userStatus: state?.dataEdit.newstatus || false,
+    userPerformance: state?.dataEdit.newperformance || 'average',
   });
 
   useEffect(() => {}, [state?.dataEdit.empeid]);
@@ -23,14 +23,33 @@ const EmployeeEditTask = () => {
   const [editError, setEditError] = useState(false);
   const [clkEdit, setClkEdit] = useState(false);
 
+  const genderData = [
+    {
+      id: 1,
+      value: 'male',
+      label: 'Male',
+    },
+    {
+      id: 2,
+      value: 'female',
+      label: 'Female',
+    },
+    {
+      id: 3,
+      value: 'others',
+      label: 'Others',
+    },
+  ];
+
   const userEdit = (ev) => {
     ev.preventDefault();
     if (
       !userDataEdit.userName ||
       !userDataEdit.userEmail ||
-      !userDataEdit.userPhone
+      !userDataEdit.userPhone ||
+      !userDataEdit.userGender
     ) {
-      setWarnMsg('Data can not be emptied.');
+      setWarnMsg('Data field is empty !');
       setEditError(true);
       setClkEdit(true);
       setTimeout(() => {
@@ -42,6 +61,9 @@ const EmployeeEditTask = () => {
         employeename: userDataEdit.userName,
         email: userDataEdit.userEmail,
         phone: userDataEdit.userPhone,
+        gender: userDataEdit.userGender,
+        newstatus: userDataEdit.userStatus,
+        newperformance: userDataEdit.userPerformance,
       };
       setClkEdit(false);
 
@@ -136,14 +158,98 @@ const EmployeeEditTask = () => {
               </Form.Group>
               <Form.Group as={Col}>
                 <Form.Label>Gender</Form.Label>
-                <Form.Select>
-                  <option>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <Form.Select
+                  value={userDataEdit.userGender}
+                  onChange={(event) =>
+                    setUserDataEdit({
+                      ...userDataEdit,
+                      userGender: event.target.value,
+                    })
+                  }
+                >
+                  <option value="">--Select gender--</option>
+                  {genderData.map((gData, i) => (
+                    <option key={gData.id} value={gData.value}>
+                      {gData.label}
+                    </option>
+                  ))}
                 </Form.Select>
+                {!userDataEdit.userGender && clkEdit === true ? (
+                  <span style={{ color: 'red' }}>Please select gender</span>
+                ) : (
+                  <></>
+                )}
               </Form.Group>
             </Row>
+            <Form>
+              <div className="mb-3">
+                <Form.Label>Employee Performance : </Form.Label>{' '}
+                <Form.Check
+                  inline
+                  label="Average"
+                  value="average"
+                  type="radio"
+                  checked={
+                    userDataEdit.userPerformance === 'average' ? true : false
+                  }
+                  onChange={(ev) =>
+                    setUserDataEdit({
+                      ...userDataEdit,
+                      userPerformance: ev.target.value,
+                    })
+                  }
+                />
+                <Form.Check
+                  inline
+                  label="Impressive"
+                  value="impressive"
+                  type="radio"
+                  checked={
+                    userDataEdit.userPerformance === 'impressive' ? true : false
+                  }
+                  onChange={(ev) =>
+                    setUserDataEdit({
+                      ...userDataEdit,
+                      userPerformance: ev.target.value,
+                    })
+                  }
+                />
+                <Form.Check
+                  inline
+                  label="Outstanding"
+                  value="outstanding"
+                  type="radio"
+                  checked={
+                    userDataEdit.userPerformance === 'outstanding'
+                      ? true
+                      : false
+                  }
+                  onChange={(ev) =>
+                    setUserDataEdit({
+                      ...userDataEdit,
+                      userPerformance: ev.target.value,
+                    })
+                  }
+                />
+              </div>
+            </Form>
+            <Form>
+              <div className="mb-3">
+                <Form.Label>Employee Status : </Form.Label>{' '}
+                <Form.Check
+                  inline
+                  label="Active"
+                  type="checkbox"
+                  checked={userDataEdit.userStatus}
+                  onChange={(ev) =>
+                    setUserDataEdit({
+                      ...userDataEdit,
+                      userStatus: ev.target.checked,
+                    })
+                  }
+                />
+              </div>
+            </Form>
             <Button variant="primary" type="submit">
               Submit
             </Button>{' '}

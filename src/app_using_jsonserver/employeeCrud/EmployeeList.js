@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Dropdown, Table } from 'react-bootstrap';
 import EmployeeView from './EmployeeView';
 import { Link, useNavigate } from 'react-router-dom';
 import SpinnerComponent from '../../components/SpinnerComponent';
@@ -76,8 +76,8 @@ const EmployeeList = () => {
   };
 
   const delData = (delId) => {
-    // console.log('del-->',del);
-    if (window.confirm('Do you want to remove data from the list ?')) {
+    console.log('del-->', delId);
+    if (window.confirm('Do you want to remove from the list ?')) {
       axios
         .delete(`${process.env.REACT_APP_JSON_API}/employee/${delId}`)
         .then((response) => {
@@ -130,7 +130,7 @@ const EmployeeList = () => {
           <Link className="btn btn-primary" to="/employee/add">
             Add Employee
           </Link>{' '}
-          <Link className="btn btn-outline-success" to="/employee/addtask">
+          <Link className="btn btn-success" to="/employee/addtask">
             Add New Employee
           </Link>{' '}
         </div>
@@ -161,6 +161,9 @@ const EmployeeList = () => {
                   <th>Gender</th>
                   <th>Employee Status</th>
                   <th>Employee Performance</th>
+                  <th>Employee New Status</th>
+                  <th>New Performance</th>
+
                   <th>Action</th>
                 </tr>
               </thead>
@@ -207,48 +210,92 @@ const EmployeeList = () => {
                             )}
                           </th>
                           <th>{eData.performance}</th>
+                          <th>
+                            {eData.newstatus === false ? (
+                              <span style={{ color: 'red' }}>Inactive</span>
+                            ) : (
+                              <span style={{ color: 'green' }}>Active</span>
+                            )}
+                          </th>
+                          <th>{eData.newperformance}</th>
+
                           <td>
-                            <Button
+                            <Dropdown className="d-inline mx-2">
+                              <Dropdown.Toggle id="dropdown-autoclose-true">
+                                Open options
+                              </Dropdown.Toggle>
+
+                              <Dropdown.Menu>
+                                <Dropdown.Item
+                                  onClick={() => viewEmpDetail(eData)}
+                                >
+                                  View Employee
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  onClick={() => viewDetailPage(eData)}
+                                >
+                                  View Page
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => viewData(eData)}>
+                                  View Modal
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => editData(eData)}>
+                                  Edit
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  onClick={() => editUserData(eData)}
+                                >
+                                  User edit
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  onClick={() => delData(eData.id)}
+                                >
+                                  Delete
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                            {/* <Button
                               variant="warning"
                               onClick={() => viewEmpDetail(eData)}
+                              size="sm"
                             >
                               View Employee
                             </Button>{' '}
-                            {/* <ButtonComp
-                          variant="warning"
-                          buttonName="View Employee"
-                          onClickButton={viewEmpDetail(eData)}
-                        />{' '} */}
                             <Button
                               variant="info"
                               onClick={() => viewDetailPage(eData)}
+                              size="sm"
                             >
                               View Page
                             </Button>{' '}
                             <Button
                               variant="primary"
                               onClick={() => viewData(eData)}
+                              size="sm"
                             >
                               View Modal
                             </Button>{' '}
                             <Button
                               variant="secondary"
                               onClick={() => editData(eData)}
+                              size="sm"
                             >
                               Edit
                             </Button>{' '}
                             <Button
-                              variant="outline-secondary"
+                              variant="success"
                               onClick={() => editUserData(eData)}
+                              size="sm"
                             >
                               User edit
                             </Button>{' '}
                             <Button
                               variant="danger"
                               onClick={() => delData(eData.id)}
+                              size="sm"
                             >
                               Delete
-                            </Button>
+                            </Button> */}
                           </td>
                         </tr>
                       </tbody>

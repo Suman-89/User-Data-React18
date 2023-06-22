@@ -6,7 +6,7 @@ const EmployeeSearch = ({ getSearch, updateSearch, searchInput }) => {
       <form onSubmit={getSearch} className="search-form">
         <input
           className="form-control me-sm-2"
-          placeholder="Search department"
+          placeholder="What do you want to search ?"
           style={{
             height: '35px',
             display: 'initial',
