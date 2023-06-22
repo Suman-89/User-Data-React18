@@ -136,7 +136,7 @@ const EmployeeEditTask = () => {
               </Form.Group>
               <Form.Group as={Col}>
                 <Form.Label>Gender</Form.Label>
-                <Form.Select aria-label="Open this select menu">
+                <Form.Select>
                   <option>Open this select menu</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
