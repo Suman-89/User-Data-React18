@@ -98,11 +98,11 @@ const EmployeeList = () => {
     });
   };
 
-  const editUserData =(userdata) =>{
-    console.log('userdata-->',userdata);
+  const editUserData = (userdata) => {
+    console.log('userdata-->', userdata);
 
     navigate(`/employee/useredit/${userdata.id}`, {
-      // state: { singleUser: userdata },
+      state: { dataEdit: userdata },
     });
   };
 
@@ -241,7 +241,7 @@ const EmployeeList = () => {
                               variant="outline-secondary"
                               onClick={() => editUserData(eData)}
                             >
-                              User edit 
+                              User edit
                             </Button>{' '}
                             <Button
                               variant="danger"

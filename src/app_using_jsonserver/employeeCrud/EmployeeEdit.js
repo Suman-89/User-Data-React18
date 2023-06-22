@@ -281,7 +281,11 @@ const EmployeeEdit = () => {
               </Button>{' '}
             </div>
             <div className="col-md-2">
-              <Button variant="success" type="button" onClick={()=>navigate('/employeelist')}>
+              <Button
+                variant="success"
+                type="button"
+                onClick={() => navigate('/employeelist')}
+              >
                 Back
               </Button>{' '}
             </div>
