@@ -2,9 +2,12 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 const EmployeeAdd = () => {
   const navigate = useNavigate();
+  const animatedComponents = makeAnimated();
   const [employeeState, setEmployeeState] = useState({
     empName: '',
     empEmail: '',
@@ -13,11 +16,22 @@ const EmployeeAdd = () => {
     activeEmp: false,
     empPerformance: 'good',
     empDetails: '',
+    techSkill: '',
   });
 
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
   const [onBtnClick, setOnBtnClick] = useState(false);
+
+  const technology = [
+    { value: 'nodejs', label: 'Nodejs' },
+    { value: 'reactjs', label: 'Reactjs' },
+    { value: 'python', label: 'Python' },
+    { value: 'angular', label: 'Angular' },
+    { value: 'java', label: 'Java' },
+    { value: 'javascript', label: 'Javascript' },
+    { value: 'next', label: 'Next' },
+  ];
 
   const addEmployee = (evt) => {
     evt.preventDefault();
@@ -27,7 +41,8 @@ const EmployeeAdd = () => {
       !employeeState.empEmail ||
       !employeeState.empPhone ||
       !employeeState.empGender ||
-      !employeeState.empDetails
+      !employeeState.empDetails ||
+      !employeeState.techSkill
       // !employeeState.empPerformance
     ) {
       setError(true);
@@ -47,6 +62,7 @@ const EmployeeAdd = () => {
         status: employeeState.activeEmp,
         performance: employeeState.empPerformance,
         empdetails: employeeState.empDetails,
+        technology: employeeState.techSkill,
       };
       setOnBtnClick(false);
 
@@ -66,6 +82,7 @@ const EmployeeAdd = () => {
                 activeEmp: false,
                 empdetails: '',
                 empPerformance: 'good',
+                techSkill: '',
               });
               setMessage('');
               navigate('/employeelist');
@@ -85,7 +102,16 @@ const EmployeeAdd = () => {
     }
   };
 
-  console.log('employeeState.empPerformance-->', employeeState.empPerformance);
+  const handleSkillChange = (tech) => {
+    console.log('tech->', tech);
+
+    setEmployeeState({
+      ...employeeState,
+      techSkill: [...tech],
+    });
+  };
+
+  console.log('employeeState.techSkill-->', employeeState.techSkill);
   return (
     <div className="container">
       <div className="row" style={{ width: '60%', margin: '0 auto' }}>
@@ -248,6 +274,23 @@ const EmployeeAdd = () => {
               ) : (
                 <></>
               )} */}
+            </Form.Group>
+
+            <Form.Group md="4" style={{ marginBottom: '20px' }}>
+              <Form.Label>Technology</Form.Label>
+              <Select
+                placeholder="Select technology"
+                options={technology}
+                isMulti
+                components={animatedComponents}
+                value={employeeState.techSkill}
+                onChange={(option) => handleSkillChange(option)}
+              />
+              {!employeeState.techSkill && onBtnClick === true ? (
+                <span style={{ color: 'red' }}>Select technology</span>
+              ) : (
+                <></>
+              )}
             </Form.Group>
 
             <Form.Group md="4" style={{ marginBottom: '20px' }}>

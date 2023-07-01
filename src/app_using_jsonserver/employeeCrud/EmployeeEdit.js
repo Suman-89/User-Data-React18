@@ -2,9 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 const EmployeeEdit = () => {
   const { empeid } = useParams();
+  const animatedComponents = makeAnimated();
   const navigate = useNavigate();
   // console.log('empeid->', empeid);
 
@@ -17,6 +20,7 @@ const EmployeeEdit = () => {
     empGender: state?.singleUser.gender || '',
     empActive: state?.singleUser.status || false,
     empPerformance: state?.singleUser.performance || 'good',
+    empTechSkill: state?.singleUser.technology || [],
   });
   const [showMessage, setShowMessage] = useState('');
   const [showError, setShowError] = useState(false);
@@ -24,6 +28,16 @@ const EmployeeEdit = () => {
   const [onCheck, setOnCheck] = useState(false);
 
   useEffect(() => {}, [state?.singleUser, empeid]);
+
+  const technology = [
+    { value: 'nodejs', label: 'Nodejs' },
+    { value: 'reactjs', label: 'Reactjs' },
+    { value: 'python', label: 'Python' },
+    { value: 'angular', label: 'Angular' },
+    { value: 'java', label: 'Java' },
+    { value: 'javascript', label: 'Javascript' },
+    { value: 'next', label: 'Next' },
+  ];
 
   const genderData = [
     {
@@ -43,6 +57,14 @@ const EmployeeEdit = () => {
     },
   ];
 
+  const handleSkillChange = (eTech) => {
+    console.log('eTech->', eTech);
+    setEmployeeEditState({
+      ...employeeEditState,
+      empTechSkill: [...eTech],
+    });
+  };
+
   const editEmployee = (e) => {
     e.preventDefault();
     if (
@@ -50,6 +72,7 @@ const EmployeeEdit = () => {
       !employeeEditState.empEmail ||
       !employeeEditState.empPhone ||
       !employeeEditState.empGender ||
+      !employeeEditState.empTechSkill ||
       onCheck === false
     ) {
       setShowError(true);
@@ -58,7 +81,7 @@ const EmployeeEdit = () => {
       setShowMessage('Please fill all the fields');
       setTimeout(() => {
         setShowMessage('');
-        setBtnClick(false);
+        setBtnClick(true);
       }, 2000);
     } else {
       const formData = {
@@ -68,6 +91,7 @@ const EmployeeEdit = () => {
         gender: employeeEditState.empGender,
         status: employeeEditState.empActive,
         performance: employeeEditState.empPerformance,
+        technology: employeeEditState.empTechSkill,
       };
       setBtnClick(false);
       setOnCheck(true);
@@ -274,6 +298,24 @@ const EmployeeEdit = () => {
                 <></>
               )} */}
           </Form.Group>
+
+          <Form.Group md="4" style={{ marginBottom: '20px' }}>
+            <Form.Label>Technology</Form.Label>
+            <Select
+              placeholder="Select technology"
+              options={technology}
+              isMulti
+              components={animatedComponents}
+              value={employeeEditState.empTechSkill}
+              onChange={(option) => handleSkillChange(option)}
+            />
+            {!employeeEditState.empTechSkill ? (
+              <span style={{ color: 'red' }}>Select technology</span>
+            ) : (
+              <></>
+            )}
+          </Form.Group>
+
           <div className="row">
             <div className="col-md-2">
               <Button variant="primary" type="submit">

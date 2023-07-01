@@ -17,10 +17,65 @@
       "phone": "9874563210",
       "gender": "male",
       "status": true,
+<<<<<<< HEAD
       "performance": "best",
       "id": 1687438190268,
       "newperformance": "average",
       "newstatus": false
+=======
+      "performance": "better",
+      "empdetails": "Hi "
+    },
+    {
+      "employeename": "Khan Baba",
+      "email": "raja@yahoo.com",
+      "phone": "7894561258",
+      "gender": "female",
+      "status": true,
+      "performance": "better",
+      "technology": [
+        {
+          "value": "nodejs",
+          "label": "Nodejs"
+        },
+        {
+          "value": "python",
+          "label": "Python"
+        },
+        {
+          "value": "angular",
+          "label": "Angular"
+        },
+        {
+          "value": "next",
+          "label": "Next"
+        }
+      ],
+      "id": 1688219749460
+    },
+    {
+      "employeename": "Krishna Jain",
+      "email": "kj@yahoo.com",
+      "phone": "432234423423",
+      "gender": "others",
+      "status": false,
+      "performance": "best",
+      "technology": [
+        {
+          "value": "reactjs",
+          "label": "Reactjs"
+        },
+        {
+          "value": "nodejs",
+          "label": "Nodejs"
+        },
+        {
+          "value": "javascript",
+          "label": "Javascript"
+        }
+      ],
+      "id": 1688219869852
+>>>>>>> 8f5314a5a4b40d7cbc5540ad3a67f5471ec42861
     }
   ]
 }
